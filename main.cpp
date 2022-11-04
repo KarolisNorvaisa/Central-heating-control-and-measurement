@@ -28,8 +28,8 @@ unsigned long Timer1=0,lastReconnectAttempt_MQTT=0,lastReconnectAttempt_WIFI=0,t
 int datat;
 const char *mqtt_broker = "broker.hivemq.com";
 const char *topic = "pastrevys/namai/virtuve";
-const char *mqtt_username = "karolis";
-const char *mqtt_password = "223";
+const char *mqtt_username = "";
+const char *mqtt_password = "";
 const int   mqtt_port = 1883;
 
 uint8_t Virtuves_temp=0, Dumtraukio_temp=0;
