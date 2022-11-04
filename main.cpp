@@ -27,7 +27,7 @@ uint8_t Reconnect_MQTT_Attempts=0, Reconnect_WIFI_Attempts=0;
 unsigned long Timer1=0,lastReconnectAttempt_MQTT=0,lastReconnectAttempt_WIFI=0,timeSinceLastRead=0, SinceLastHeartbeat=0;
 int datat;
 const char *mqtt_broker = "broker.hivemq.com";
-const char *topic = "pastrevys/namai/virtuve";
+const char *topic = "";
 const char *mqtt_username = "";
 const char *mqtt_password = "";
 const int   mqtt_port = 1883;
@@ -272,8 +272,8 @@ Radiatoriu_siurblys.init();
     }
   }
   // publish and subscribe
-  client.subscribe("pastrevys/namai/Rusys");
-      client.subscribe("pastrevys/namai/virtuve/TEMP");
+  client.subscribe("");
+      client.subscribe("");
 
 
 
@@ -325,8 +325,8 @@ boolean reconnect() {
     client_id += String(WiFi.macAddress());
   if (client.connect(client_id.c_str(), mqtt_username, mqtt_password)) {   
     client.subscribe(topic);
-    client.subscribe("pastrevys/namai/Rusys");
-    client.subscribe("pastrevys/namai/virtuve/TEMP");
+    client.subscribe("");
+    client.subscribe("");
     
   }
   return client.connected();
@@ -444,19 +444,19 @@ if (Radiatoriu_siurblys.get_workingMode()) {ModeAuto();}
 
 bool WritePumpStatus(){
   
-  if (Radiatoriu_siurblys.get_state()) {pub (1,"pastrevys/namai/Rusio/RSbusena");}
-  else {pub (2,"pastrevys/namai/Rusio/RSbusena");}
+  if (Radiatoriu_siurblys.get_state()) {pub (1,"");}
+  else {pub (2,"");}
   delay(100);
-  if (Radiatoriu_siurblys.get_workingMode()) {pub (3,"pastrevys/namai/Rusio/RSbusena");}
-  else {pub (4,"pastrevys/namai/Rusio/RSbusena");}
-  delay(100);
-
-  if (Grindu_siurblys.get_workingMode()) {pub (5,"pastrevys/namai/Rusio/GSbusena");}
-  else {pub (6,"pastrevys/namai/Rusio/GSbusena");}
+  if (Radiatoriu_siurblys.get_workingMode()) {pub (3,"");}
+  else {pub (4,"");}
   delay(100);
 
-  if (Grindu_siurblys.get_state()){ pub (7,"pastrevys/namai/Rusio/GSbusena");}
-  else {pub (8,"pastrevys/namai/Rusio/GSbusena");}
+  if (Grindu_siurblys.get_workingMode()) {pub (5,"");}
+  else {pub (6,"");}
+  delay(100);
+
+  if (Grindu_siurblys.get_state()){ pub (7"");}
+  else {pub (8,"");}
   delay(100);
   
 }
@@ -473,7 +473,7 @@ void Routine1(){
 }
 
 void Warning (){
-  if (T2>80) pub (1,"pastrevys/namai/Rusio/avarinis");
+  if (T2>80) pub (1,"");
 }
 
 bool BlockPump_Cold(){
@@ -503,17 +503,17 @@ bool WriteTemperatures(){
     for (int i=0; i <4; i++){   
     delay(5);
     float T=GetTemperatures(Sensoriai[i]);
-    if (i==0)  pub (T,"pastrevys/namai/Rusio/TEMP1");     T1=(int)T;
+    if (i==0)  pub (T,"");     T1=(int)T;
     //AKUMULIACINE
     delay(50);
-    if (i==1)  pub (T,"pastrevys/namai/Rusio/TEMP2");     T2=(int)T;
+    if (i==1)  pub (T,"");     T2=(int)T;
     //IS KATILO
     delay(50);
 
-    if (i==2)  pub (T,"pastrevys/namai/Rusio/TEMP3"); // APLINKA
+    if (i==2)  pub (T,""); // APLINKA
     delay(50);
 
-    if (i==3)  pub (T,"pastrevys/namai/Rusio/TEMP4"); //GRIZTA I KATILA
+    if (i==3)  pub (T,""); //GRIZTA I KATILA
     }
     pub(Dumtraukio_temp,"TEMP5");
       timeSinceLastRead=millis();
